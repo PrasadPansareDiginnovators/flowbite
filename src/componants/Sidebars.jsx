@@ -63,9 +63,9 @@ const Sidebars = ({ isvisible }) => {
     };
 
     const footerItems = [
-        { img: slinr, alt: 'sline',  },
-        { img: setting, alt: 'setting',  },
-        { img: flag, alt: 'flag', }
+        { img: slinr, alt: 'sline' },
+        { img: setting, alt: 'setting' },
+        { img: flag, alt: 'flag' }
     ];
 
     return (
@@ -85,8 +85,8 @@ const Sidebars = ({ isvisible }) => {
                             className={`relative flex gap-2 mx-4 my-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 py-2 rounded-md ${item.onClick ? 'cursor-pointer' : ''}`}
                             onClick={item.onClick}
                         >
-                            <img src={item.img} alt={item.label.toLowerCase()} />
-                            <p className="text-md cursor-pointer">{item.label}</p>
+                            <img src={item.img} alt={item.label.toLowerCase()} className="h-6 w-6" />
+                            <p className={`text-md cursor-pointer hidden lg:block ${item.onClick ? 'lg:block' : ''}`}>{item.label}</p>
                             {item.badge && (
                                 <p className="w-5 h-5 flex items-center justify-center rounded-full text-sm font-medium text-blue-700 bg-blue-100 dark:bg-blue-900 dark:text-blue-200 ml-auto">
                                     {item.badge}

@@ -62,7 +62,6 @@ const TaskCard = ({ title, description, avatars = [p1, p2, p3], timeLeft, timePe
         </div>
       </div>
 
-      {/* Modal */}
 
       <Modal isOpen={isModalOpen} onClose={closeModal}>
 

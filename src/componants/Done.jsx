@@ -1,4 +1,3 @@
-// Done.js
 import React, { useState } from 'react';
 import TaskCard from './TaskCard';
 import p1 from '../assets/img/ToDo/p1.svg';
