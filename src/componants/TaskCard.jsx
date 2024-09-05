@@ -19,11 +19,11 @@ const TaskCard = ({ title, description, avatars = [p1, p2, p3], timeLeft, timePe
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleEditClick = () => {
-    setModalOpen(true); // Open modal 
+    setModalOpen(true); 
   };
 
   const closeModal = () => {
-    setModalOpen(false); // Close modal
+    setModalOpen(false); 
   };
 
   return (

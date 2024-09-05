@@ -45,7 +45,7 @@ const Navbar = ({ toggleSidebar }) => {
     const togglenotification = () => {
         setnotification(!shownotification)
     }
-        
+
 
     return (
         <div className={`${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'} transition-colors duration-300`}>
@@ -59,11 +59,13 @@ const Navbar = ({ toggleSidebar }) => {
                     <img src={flowbite} alt="flowbite" className="h-8" />
                     <h1 className="text-2xl font-semibold">Flowbite</h1>
                     <div className="hidden md:block">
-                        <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-[#F9FAFB]'} flex border rounded-lg pl-1 py-[2px] pr-40 ml-16`}>
+                        <div
+                            className={`${isDarkMode ? 'bg-gray-800' : 'bg-[#F9FAFB]'} flex border rounded-lg pl-1 py-[2px] pr-40 ml-16 focus-within:border-blue-500 focus-within:border-2`}
+                        >
                             <img src={search} alt="search" className="h-9 p-2" />
                             <input
                                 placeholder="Search"
-                                className={`text-sm font-normal text-gray-600 ${isDarkMode ? 'bg-[F9FAFB] text-white' : 'bg-[#F9FAFB] text-black'}`}
+                                className={`text-sm font-normal ${isDarkMode ? 'bg-[#F9FAFB] text-white placeholder-white' : 'bg-[#F9FAFB] text-black placeholder-gray-500'} border-none focus:border-none focus:outline-none`}
                             />
                         </div>
                     </div>

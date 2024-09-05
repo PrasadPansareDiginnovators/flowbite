@@ -16,75 +16,56 @@ import flag from '../assets/img/sidebar/flag1.svg';
 import pages from '../assets/img/sidebar/pages.svg';
 
 const Sidebars = ({ isvisible }) => {
-    const [showEcommerceSubmenu, setShowEcommerceSubmenu] = useState(false);
-    const [showUsersSubmenu, setShowUsersSubmenu] = useState(false);
-    const [showPagesSubmenu,setshowpagessubmenu] = useState(false)
-    const [showAuthenticationSubmenu, setShowAuthenticationSubmenu] = useState(false);
+    const [openSubmenu, setOpenSubmenu] = useState(null);
 
-    const handleEcommerceClick = () => {
-        setShowEcommerceSubmenu(!showEcommerceSubmenu);
+    const handleMenuClick = (label) => {
+        setOpenSubmenu(openSubmenu === label ? null : label);
     };
 
-    const handleUsersClick = () => {
-        setShowUsersSubmenu(!showUsersSubmenu);
+    const menuItems = [
+        { img: dashboard, label: 'Dashboard', type: 'main' },
+        { img: kanban, label: 'Kanban', type: 'main' },
+        { img: inbox, label: 'Inbox', badge: '3', type: 'main' },
+        { img: ecommerece, label: 'E-commerce', arrow: true, onClick: () => handleMenuClick('E-commerce'), type: 'main' },
+        { img: users, label: 'Users', arrow: true, onClick: () => handleMenuClick('Users'), type: 'main' },
+        { img: pages, label: 'Pages', arrow: true, onClick: () => handleMenuClick('Pages'), type: 'main' },
+        { img: authentication, label: 'Authentication', arrow: true, onClick: () => handleMenuClick('Authentication'), type: 'main' },
+        { img: docs, label: 'Docs', type: 'secondary' },
+        { img: componants, label: 'Components', type: 'secondary' },
+        { img: help, label: 'Help', type: 'secondary' },
+    ];
+
+    const submenuItems = {
+        'E-commerce': [
+            { label: 'Product' },
+            { label: 'Billing' },
+            { label: 'Invoice' },
+        ],
+        'Users': [
+            { label: 'User List' },
+            { label: 'Profile' },
+            { label: 'Feed' },
+            { label: 'Settings' },
+        ],
+        'Pages': [
+            { label: 'Pricing' },
+            { label: 'Maintenance' },
+            { label: '404 not found' },
+            { label: '500 server error' },
+        ],
+        'Authentication': [
+            { label: 'Sign In' },
+            { label: 'Sign Up' },
+            { label: 'Forgot Password' },
+            { label: 'Reset Password' },
+            { label: 'Profile Lock' },
+        ],
     };
-
-    const handlePagesClick = () =>{
-        setshowpagessubmenu(!showPagesSubmenu)
-    }
-
-    const handleAuthenticationClick = () => {
-        setShowAuthenticationSubmenu(!showAuthenticationSubmenu);
-    };
-
-    const mainMenuItems = [
-        { img: dashboard, label: 'Dashboard' },
-        { img: kanban, label: 'Kanban' },
-        { img: inbox, label: 'Inbox', badge: '3' },
-        { img: ecommerece, label: 'E-commerce', arrow: true, onClick: handleEcommerceClick },
-        { img: users, label: 'Users', arrow: true, onClick: handleUsersClick },
-        { img: pages, label: 'Pages', arrow: true, onClick: handlePagesClick },
-        { img: authentication, label: 'Authentication', arrow: true, onClick: handleAuthenticationClick },
-    ];
-
-    const ecommerceSubmenuItems = [
-        { label: 'Product' },
-        { label: 'Billing' },
-        { label: 'Invoice' },
-    ];
-
-    const usersSubmenuItems = [
-        { label: 'User List' },
-        { label: 'Profile' },
-        { label: 'Feed' },
-        { label: 'Settings' },
-    ];
-
-    const showPagesSubmenuItems = [
-        { label: 'Pricing' },
-        { label: 'Maintenance' },
-        { label: '404 not found' },
-        { label: '500 server error' },
-    ];
-
-    const authenticationSubmenuItems = [
-        { label: 'Sign In' },
-        { label: 'Sign Up' },
-        { label: 'Forgot Password' },
-        { label: 'Reset Password' },
-        { label: 'Profile Lock' },
-    ];
-
-    const secondaryMenuItems = [
-        { img: docs, label: 'Docs' },
-        { img: componants, label: 'Components' },
-        { img: help, label: 'Help' },
-    ];
 
     const footerItems = [
-        { img: slinr, alt: 'sline', className: 'h-6 w-6' },
-        { img: setting, alt: 'setting', className: 'h-6 w-6' },
-        { img: flag, alt: 'flag', className: 'rounded-full h-5 w-5 mt-1' }
+        { img: slinr, alt: 'sline',  },
+        { img: setting, alt: 'setting',  },
+        { img: flag, alt: 'flag', }
     ];
 
     return (
@@ -98,7 +79,7 @@ const Sidebars = ({ isvisible }) => {
             </div>
 
             <div className="space-y-2">
-                {mainMenuItems.map((item, index) => (
+                {menuItems.map((item, index) => (
                     <div key={index}>
                         <div
                             className={`relative flex gap-2 mx-4 my-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 py-2 rounded-md ${item.onClick ? 'cursor-pointer' : ''}`}
@@ -114,71 +95,37 @@ const Sidebars = ({ isvisible }) => {
                             {item.arrow && <img src={dawnarrow} alt="dawnarrow" className="ml-auto" />}
                         </div>
 
-                        {/* Submenu for E-commerce */}
-                        {item.label === 'E-commerce' && showEcommerceSubmenu && (
+                        {/* Submenus */}
+                        {item.type === 'main' && openSubmenu === item.label && (
                             <div className="pl-8 space-y-2 mb-2">
-                                {ecommerceSubmenuItems.map((submenuItem, subIndex) => (
+                                {submenuItems[item.label].map((submenuItem, subIndex) => (
                                     <div key={subIndex} className="flex text-lg gap-2 p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
-                                        <p className="text-md">{submenuItem.label}</p>
+                                        <p className="text-base">{submenuItem.label}</p>
                                     </div>
                                 ))}
                             </div>
                         )}
 
-                        {/* Submenu for Users */}
-                        {item.label === 'Users' && showUsersSubmenu && (
-                            <div className="pl-8 space-y-2 mb-2">
-                                {usersSubmenuItems.map((submenuItem, subIndex) => (
-                                    <div key={subIndex} className="flex text-lg gap-2 p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
-                                        <p className="text-md">{submenuItem.label}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        {/* Submenu for Pages */}
-                        {item.label === 'Pages' && showPagesSubmenu && (
-                            <div className="pl-8 space-y-2 mb-2">
-                                {showPagesSubmenuItems.map((submenuItem, subIndex) => (
-                                    <div key={subIndex} className="flex text-lg gap-2 p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
-                                        <p className="text-md">{submenuItem.label}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        {/* Submenu for Authentication */}
-                        {item.label === 'Authentication' && showAuthenticationSubmenu && (
-                            <div className="pl-8 space-y-2 mb-2">
-                                {authenticationSubmenuItems.map((submenuItem, subIndex) => (
-                                    <div key={subIndex} className="flex text-lg gap-2 p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
-                                        <p className="text-md">{submenuItem.label}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                ))}
-
-                <hr className="border-gray-200 dark:border-gray-700" />
-                {secondaryMenuItems.map((item, index) => (
-                    <div key={index} className="flex gap-2 mx-4 my-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 py-2 rounded-md">
-                        <img src={item.img} alt={item.label.toLowerCase()} />
-                        <p className="text-md cursor-pointer">{item.label}</p>
+                        {item.label === 'Authentication' && <hr className="border-t border-gray-200 dark:border-gray-700 my-2" />}
                     </div>
                 ))}
             </div>
 
-            <div className='flex flex-row gap-2 mt-20 justify-evenly'>
+            <div className='flex flex-row gap-9 mt-28 mx-10 justify-center'>
                 {footerItems.map((item, index) => (
-                    <img
+                    <div
                         key={index}
-                        src={item.img}
-                        alt={item.alt}
-                        className={`h-8 ${item.className ? item.className : ''}`}
-                    />
+                        className="h-5 w-5 rounded-full overflow-hidden flex items-center justify-center"
+                    >
+                        <img
+                            src={item.img}
+                            alt={item.alt}
+                            className="h-full w-full object-cover"
+                        />
+                    </div>
                 ))}
             </div>
+
         </div>
     );
 };
